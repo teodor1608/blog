@@ -1,0 +1,21 @@
+<h1 class="mb-2">Blog Articles</h1>
+<p class="lead mb-3">Welcome <%= user.name %> </p>
+<a href="/articles/new" class="btn btn-success">A New Article</a>
+<a href="/users/logout" class="btn btn-secondary float-right">Logout</a>
+
+<% articles.forEach(article => { %>
+    <div class="card mt-4">
+        <div class="card-body">
+            <h4 class="card-title"><%= article.title %></h4>
+            <div class="card-subtitle text-muted mb-2">
+                <%= article.createdAt.toLocaleDateString() %>
+            </div>
+            <div class="car-text mb-2"><%= article.description %> </div>
+            <a href="articles/<%= article.slug %>?_user=user" class="btn btn-primary">Read More</a>
+            <% if(user.id === article.userCreated){ %> 
+                <form action="/articles/<%= article.id %>?_method=DELETE" method="POST" class="d-inline">  
+                <button type="submit" class="btn btn-danger">Delete</button></form>
+            <% } %>
+        </div>  
+    </div>
+<% }) %>
